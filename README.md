@@ -3,12 +3,6 @@ Got it. Here's the clean version — no times, no IPs, professional:
 ---
 
 ```
-# Step 4 - Incident Report
-```
-
----
-
-```
 ## Section 1 — Executive Summary
 ```
 
@@ -101,51 +95,68 @@ user input directly into SQL queries.
 
 ```
 ### Wireshark Evidence
-
+```
+```
 Filter 1 — Port Scan Detection
 Filter: tcp.flags.syn==1 && tcp.flags.ack==0
 Finding: High volume of SYN packets from attacker machine — 
 clear signature of an active port scan.
-[Add screenshot]
+```
+<img src="Project_img/wireshark1.png" width="600">
 
+```
 Filter 2 — FTP Connection
 Filter: tcp.port == 21
 Finding: TCP handshake to port 21 confirming FTP exploit attempt.
-<img src="Project SS/wireshark4.png" width="600">
+```
+<img src="Project_img/wireshark2.png" width="600">
 
+```
 Filter 3 — Meterpreter Reverse Connection
 Filter: tcp.port == 4444
 Finding: Encrypted reverse TCP session established between attacker 
 and target. Meterpreter encrypts post-exploitation traffic — 
 exploitation confirmed via session logs.
-[Add screenshot]
+```
+<img src="Project_img/wireshark3.png" width="600">
 
+```
 Filter 4 — Full Attack Traffic
 Filter: ip.src == [attacker] && ip.dst == [target]
 Finding: Complete attack traffic flow visible between both machines.
-[Add screenshot]
 ```
+<img src="Project_img/wireshark4.png" width="600">
+
+---
 
 ```
 ### Splunk SIEM Evidence
-
+```
+```
 Total events ingested: 145,544
 
 Search 1 — Event Timeline
 Query: index=main | timechart count
 Finding: Massive event spike corresponding to Nmap port scan activity.
-[Add screenshot]
+```
+<img src="Project_img/splunk1.png" width="600">
+
+```
 
 Search 2 — Protocol Breakdown
 Query: index=main | stats count by Protocol | sort -count
 Finding: TCP dominated traffic — consistent with scanning and exploitation.
 [Add screenshot]
+```
+<img src="Project_img/splunk2.png" width="600">
 
+```
 Search 3 — Traffic to Target
 Query: index=main Destination="[target-ip]" | stats count by Protocol
 Finding: All malicious traffic directed at target machine confirmed.
-[Project SS/wireshark4.png]
+
 ```
+<img src="Project_img/splunk3.png" width="600">
 
 ---
 
@@ -179,3 +190,4 @@ Finding: All malicious traffic directed at target machine confirmed.
 6. Enforce least privilege — no service should run as root unnecessarily
 7. Strong password hashing — replace MD5 with bcrypt or Argon2
 ```
+
