@@ -1,4 +1,6 @@
-Got it. Here's the clean version — no times, no IPs, professional:
+## Documentation
+
+Full documented report: [GitBook Report](https://prajwal-1221.gitbook.io/security-notes/step-0-lab-setup/step-0-lab-setup)
 
 ---
 
